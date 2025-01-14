@@ -1,21 +1,20 @@
-import { MouseEvent, useState } from 'react'
-import './App.css'
-import Button from './components/Button/Button'
+import { useState } from 'react';
+import Button from './components/Button/Button';
 
 function App() {
 
-  const [counter, setCounter] = useState<number>(0);
+	const [counter, setCounter] = useState<number>(0);
 
-  const AddCounter = (event: MouseEvent) => {
-    console.log(event)
-  }
+	const AddCounter = () => {
+		setCounter(1);
+	};
   
-  return (
-    <>
-      <div>{ counter }</div>
-      <Button onClick={ AddCounter }>Кнопка</Button>
-    </>
-  )
+	return (
+		<>
+			<div>{ counter }</div>
+			<Button onClick={ AddCounter }>Кнопка</Button>
+		</>
+	);
 }
 
-export default App
+export default App;
