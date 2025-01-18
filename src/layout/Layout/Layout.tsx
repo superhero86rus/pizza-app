@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import styles from './Layout.module.css';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -6,16 +6,9 @@ import ListIcon from '@mui/icons-material/List';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PowerSettingsNewRoundedIcon from '@mui/icons-material/PowerSettingsNewRounded';
 import Button from '../../components/Button/Button';
-import { useEffect } from 'react';
 import cn from 'classnames';
 
 export function Layout(){
-
-	const location = useLocation();
-
-	useEffect(() => {
-		console.log(location);
-	}, [location]);
 
 	return <div className={styles['layout']}>
 		<div className={styles['sidebar']}>
@@ -24,15 +17,21 @@ export function Layout(){
 				<div className={styles['name']}>Котов Александр</div>
 				<div className={styles['email']}>kotov.alexandr@gmail.com</div>
 			</div>
+
 			<div className={styles['menu']}>
-				<Link to="/" className={cn(styles['link'], {
-					[styles.active]: location.pathname === '/'
+				
+				<NavLink to="/" className={({ isActive }) => cn(styles['link'], {
+					[styles.active]: isActive
 				})}>
 					<ListIcon/>
-				Меню</Link>
-				<Link to="/cart" className={styles['link']}>
+				Меню</NavLink>
+
+				<NavLink to="/cart" className={({ isActive }) => cn(styles['link'], {
+					[styles.active]: isActive
+				})}>
 					<ShoppingCartIcon />
-				Корзина</Link>
+				Корзина</NavLink>
+
 			</div>
 			<Button className={styles['exit']}>
 				<PowerSettingsNewRoundedIcon />
