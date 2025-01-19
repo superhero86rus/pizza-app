@@ -5,12 +5,15 @@ import './index.css';
 import { Cart } from './pages/Cart/Cart';
 import { Error as ErrorPage } from './pages/Error/Error';
 import { Product } from './pages/Product/Product';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, defer, RouterProvider } from 'react-router-dom';
 import { Layout } from './layout/Layout/Layout';
 import axios from 'axios';
 import { PREFIX } from './helpers/API';
 
 const Menu = lazy(() => import('./pages/Menu/Menu'));
+import { AuthLayout } from './layout/AuthLayout/AuthLayout';
+import { Login } from './pages/Login/Login';
+import { Register } from './pages/Register/Register';
 
 const router = createBrowserRouter(
 	[
@@ -31,15 +34,32 @@ const router = createBrowserRouter(
 					element: <Product />,
 					errorElement: <>Ошибка</>,
 					loader: async ({ params }) => {
-						await new Promise<void>((resolve)=>{
-							setTimeout(()=>{
-								resolve();
-							}, 2000);
+
+						return defer({
+							data: new Promise((resolve, reject) => {
+								setTimeout(() => {
+									axios.get(`${PREFIX}/prod1ucts/${params.id}`).then(data => resolve(data)).catch(e => reject(e));
+								}, 2000);
+							})
 						});
 			
 						const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
 						return data;
 					}
+				}
+			]
+		},
+		{
+			path: '/auth',
+			element: <AuthLayout />,
+			children: [
+				{
+					path:'login',
+					element: <Login />
+				},
+				{
+					path:'register',
+					element: <Register />
 				}
 			]
 		},
