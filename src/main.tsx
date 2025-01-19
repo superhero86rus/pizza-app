@@ -3,10 +3,12 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import { Menu } from './pages/Menu/Menu';
 import { Cart } from './pages/Cart/Cart';
-import { Error } from './pages/Error/Error';
+import { Error as ErrorPage } from './pages/Error/Error';
 import { Product } from './pages/Product/Product';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './layout/Layout/Layout';
+import axios from 'axios';
+import { PREFIX } from './helpers/API';
 
 const router = createBrowserRouter(
 	[
@@ -24,13 +26,24 @@ const router = createBrowserRouter(
 				},
 				{
 					path: '/product/:id',
-					element: <Product />
+					element: <Product />,
+					errorElement: <>Ошибка</>,
+					loader: async ({ params }) => {
+						await new Promise((resolve)=>{
+							setTimeout(()=>{
+								resolve();
+							}, 2000);
+						});
+			
+						const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
+						return data;
+					}
 				}
 			]
 		},
 		{
 			path: '*',
-			element: <Error />
+			element: <ErrorPage />
 		}
 	], 
 	{
