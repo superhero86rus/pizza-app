@@ -5,6 +5,7 @@ import Search from '../../components/Search/Search';
 import { PREFIX } from '../../helpers/API';
 import { Product } from '../../interfaces/product.interface';
 import styles from './Menu.module.css';
+import axios from 'axios';
 
 export function Menu(){
 
@@ -13,16 +14,11 @@ export function Menu(){
 	const getMenu = async () => {
 
 		try{
-			const res = await fetch(`${PREFIX}/products`);
-			if(!res.ok){
-				return;
-			}
-
-			const data = await res.json() as Product[];
+			const { data } = await axios.get<Product[]>(`${PREFIX}/products`);
 			setProducts(data);
 		}catch(e){
 			console.log(e);
-			return;
+		    return;
 		}
 	};
 
