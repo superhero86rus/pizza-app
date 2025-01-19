@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -38,7 +38,7 @@ export function Layout(){
 				Выход
 			</Button>
 		</div>
-		<div>
+		<div className={styles['content']}>
 			<Outlet />
 		</div>
 	</div>;

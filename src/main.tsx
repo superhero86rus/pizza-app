@@ -6,7 +6,6 @@ import { Cart } from './pages/Cart/Cart';
 import { Error } from './pages/Error/Error';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from './layout/Layout/Layout';
-import App from './App';
 
 const router = createBrowserRouter(
 	[
