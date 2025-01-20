@@ -14,12 +14,13 @@ const Menu = lazy(() => import('./pages/Menu/Menu'));
 import { AuthLayout } from './layout/AuthLayout/AuthLayout';
 import { Login } from './pages/Login/Login';
 import { Register } from './pages/Register/Register';
+import { RequireAuth } from './helpers/RequireAuth';
 
 const router = createBrowserRouter(
 	[
 		{
 			path: '/',
-			element: <Layout />,
+			element: <RequireAuth><Layout /></RequireAuth>, // Оборачиваем в проверку jwt по сути любой роут
 			children: [
 				{
 					path: '/',
