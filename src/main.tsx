@@ -15,6 +15,8 @@ import { AuthLayout } from './layout/AuthLayout/AuthLayout';
 import { Login } from './pages/Login/Login';
 import { Register } from './pages/Register/Register';
 import { RequireAuth } from './helpers/RequireAuth';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const router = createBrowserRouter(
 	[
@@ -82,6 +84,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={router} future={{ v7_startTransition: true }} />
+		<Provider store={store}>
+			<RouterProvider router={router} future={{ v7_startTransition: true }} />
+		</Provider>
 	</StrictMode>
 );
