@@ -7,13 +7,17 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PowerSettingsNewRoundedIcon from '@mui/icons-material/PowerSettingsNewRounded';
 import Button from '../../components/Button/Button';
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store/store';
+import { userActions } from '../../store/user.slice';
 
 export function Layout(){
 
 	const navigate = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const logout = () => {
-		localStorage.removeItem('jwt');
+		dispatch(userActions.logout());
 		navigate('/auth/login');
 	};
 
