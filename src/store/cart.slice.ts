@@ -20,6 +20,10 @@ export const cartSlice = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
+		clean: (state) => { // Очистка корзины
+			state.items = [];
+		},
+
 		delete: (state, action: PayloadAction<number>) => {
 			state.items = state.items.filter(i => i.id !== action.payload);
 		},
